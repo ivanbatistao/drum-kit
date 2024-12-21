@@ -1,11 +1,13 @@
-const playAudio = (event) => {
-  const audio = document.querySelector(`audio[data-key="${event.keyCode}"]`);
-  if (audio) {
-    audio.currentTime = 0;
-    audio.play();
-  }
+import {
+  playAudio,
+  addStyleToPlayingKey,
+  removePlayingKeyStyle,
+} from './helpers/dom/index.js';
+
+const handleKeydown = (event) => {
+  playAudio(event);
+  addStyleToPlayingKey(event);
+  event.target.addEventListener('transitionend', removePlayingKeyStyle);
 };
 
-window.addEventListener('keydown', (event) => {
-  playAudio(event);
-});
+window.addEventListener('keydown', handleKeydown);
